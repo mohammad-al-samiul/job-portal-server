@@ -46,3 +46,19 @@ export const loginUser = async ({ email, password }) => {
     token,
   };
 };
+
+export const getMe = async (userId) => {
+  const user = await User.findById(userId).select("-password");
+
+  if (!user) throw new ApiError(404, "User not found");
+
+  return {
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    isApproved: user.isApproved,
+    isBlocked: user.isBlocked,
+    profile: user.profile,
+  };
+};

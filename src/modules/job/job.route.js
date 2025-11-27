@@ -12,23 +12,23 @@ import {
   jobApplicantsController,
 } from "./job.controller.js";
 
-const router = express.Router();
+const jobRouter = express.Router();
 
 // public
-router.get("/", getJobsController);
-router.get("/:id", getJobController);
+jobRouter.get("/", getJobsController);
+jobRouter.get("/:id", getJobController);
 
 // employer
-router.post(
+jobRouter.post(
   "/",
   protect,
-  requireApprovedEmployer, // role + approval দুইটা একসাথে
+  requireApprovedEmployer, // role + approval both
   createJobController
 );
 
-router.put("/:id", protect, requireRole("employer"), updateJobController);
+jobRouter.put("/:id", protect, requireRole("employer"), updateJobController);
 
-router.get(
+jobRouter.get(
   "/:id/applicants",
   protect,
   requireRole("employer"),
@@ -36,11 +36,11 @@ router.get(
 );
 
 // jobseeker apply
-router.post(
+jobRouter.post(
   "/:id/apply",
   protect,
   requireRole("jobseeker"),
   applyJobController
 );
 
-export default router;
+export default jobRouter;
