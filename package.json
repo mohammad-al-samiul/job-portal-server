@@ -9,7 +9,7 @@
     "start": "node src/server.js",
     "lint": "eslint ./src --ext .js",
     "lint:fix": "eslint ./src --ext .js --fix",
-    "build": "rimraf dist && esbuild src/vercel-handler.js --bundle --platform=node --outfile=dist/server.js"
+  
   },
   "keywords": [],
   "author": "",
