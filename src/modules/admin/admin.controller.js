@@ -18,7 +18,7 @@ export const approveEmployerController = asyncHandler(async (req, res) => {
   res.json(user);
 });
 
-export const blockUserController = asyncHandler(async (req, res) => {
+export const blockOrUnblockUserController = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { isBlocked } = req.body;
 
