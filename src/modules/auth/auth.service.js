@@ -43,7 +43,7 @@ export const loginUser = async ({ email, password }) => {
 
   return {
     user: baseUserResponse(user),
-    token,
+    token, // send back to controller
   };
 };
 
