@@ -5,9 +5,10 @@ import {
   allAppsController,
   allJobsController,
   approveEmployerController,
-  blockUserController,
+  getAllUsersController,
   pendingEmployersController,
 } from "./admin.controller.js";
+import { blockOrUnblockUserService } from "./admin.service.js";
 
 const adminRouter = express.Router();
 
@@ -16,8 +17,9 @@ adminRouter.use(protect, requireRole("admin"));
 
 adminRouter.get("/pending-employers", pendingEmployersController);
 adminRouter.patch("/employers/:id/approve", approveEmployerController);
-adminRouter.patch("/users/:id/block", blockUserController);
+adminRouter.patch("/users/:id/block", blockOrUnblockUserService);
 adminRouter.get("/jobs", allJobsController);
+adminRouter.get("/users", getAllUsersController);
 adminRouter.get("/applications", allAppsController);
 
 export default adminRouter;

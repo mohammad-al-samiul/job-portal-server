@@ -3,7 +3,8 @@ import {
   allApplicationsService,
   allJobsService,
   approveEmployerService,
-  blockUserService,
+  blockOrUnblockUserService,
+  getAllUsersService,
   pendingEmployersService,
 } from "./admin.service.js";
 
@@ -18,10 +19,29 @@ export const approveEmployerController = asyncHandler(async (req, res) => {
 });
 
 export const blockUserController = asyncHandler(async (req, res) => {
+  const { id } = req.params;
   const { isBlocked } = req.body;
-  const user = await blockUserService(req.params.id, isBlocked);
-  res.json(user);
+
+  const user = await blockOrUnblockUserService(id, isBlocked);
+
+  return res.status(200).json({
+    success: true,
+    message: isBlocked
+      ? "User blocked successfully"
+      : "User unblocked successfully",
+    data: user,
+  });
 });
+
+export const getAllUsersController = async (req, res) => {
+  const users = await getAllUsersService();
+
+  return res.status(200).json({
+    success: true,
+    count: users.length,
+    data: users,
+  });
+};
 
 export const allJobsController = asyncHandler(async (req, res) => {
   const jobs = await allJobsService();

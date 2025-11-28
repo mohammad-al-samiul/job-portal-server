@@ -16,11 +16,18 @@ export const approveEmployerService = async (id) => {
   return user;
 };
 
-export const blockUserService = async (id, isBlocked) => {
-  const user = await User.findById(id);
-  if (!user) throw new ApiError(404, "User not found");
-  user.isBlocked = !!isBlocked;
-  await user.save();
+export const getAllUsersService = async () => {
+  const users = await User.find().select("-password");
+  return users;
+};
+
+export const blockOrUnblockUserService = async (id, isBlocked) => {
+  const user = await User.findByIdAndUpdate(
+    id,
+    { isBlocked },
+    { new: true }
+  ).select("-password");
+
   return user;
 };
 
