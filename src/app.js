@@ -11,7 +11,15 @@ import applicationRouter from "./modules/application/application.route.js";
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://job-portal-client-neon-sigma.vercel.app",
+    ],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  })
+);
 app.use(express.json());
 
 app.get("/", (req, res) => {
